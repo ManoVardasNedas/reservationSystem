@@ -13,10 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'homeController@show');
+
+Route::get('/reservation', 'reservationController@show_res_create');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

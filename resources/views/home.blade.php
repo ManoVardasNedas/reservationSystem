@@ -1,23 +1,18 @@
-@extends('layouts.app')
+<p>Home screen</p>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+<form method="POST" action="/reservation/info">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <p><label>Reservation Code</label></p>
+    <p><input type="text" name="res_code"></p>
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+    <p>
+        <button type="submit" >
+            Check
+        </button>
+    </p>
+
+</form>
+
+<p><a href="/reservation"><button class="button">Register</button></a></p>
+
