@@ -16,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'homeController@show');
 
 Route::get('/reservation', 'reservationController@show_res_create');
+Route::post('/reservation/confirm', 'reservationController@create');
+
+
+Route::get('/logout', 'userController@logout');
 
 Auth::routes();
