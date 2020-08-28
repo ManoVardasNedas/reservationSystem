@@ -33,4 +33,14 @@ class reservation_service
 
         return $numberInLine;
     }
+
+    public function finishStartedSpecialist($code)
+    {
+        $codeRes = $this->getReservation($code);
+        $specialistID = $codeRes['fk_specialistID'];
+        reservation::where([
+            ['fk_specialistID', $specialistID],
+            ['status', 'Started']])
+            ->update(['status' => 'Finished']);
+    }
 }

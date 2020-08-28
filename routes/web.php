@@ -19,6 +19,8 @@ Route::get('/reservation', 'reservationController@show_res_create');
 Route::post('/reservation/confirm', 'reservationController@createReservation');
 Route::post('/reservation/info', 'reservationInfoController@showReservationInfo');
 Route::post('/reservation/cancel', 'reservationController@cancelReservation');
+Route::post('/reservation/start', 'reservationController@startReservation');
+Route::post('/reservation/finish', 'reservationController@finishReservation');
 
 Route::get('/specialist', 'specialistController@showSpecialistView')->middleware('auth');
 

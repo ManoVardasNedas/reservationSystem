@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\reservation;
+use App\Services\reservation_service;
 use App\specialist;
 use Illuminate\Http\Request;
 
 class reservationController extends Controller
 {
+    private $serviceReservation;
+
+    public function __construct()
+    {
+        $this->serviceReservation = new reservation_service();
+    }
+
     public function show_res_create()
     {
         $specialists = specialist::all();
@@ -38,4 +46,21 @@ class reservationController extends Controller
         reservation::where('code', $code)->delete();
         return redirect('/');
     }
+
+    public function startReservation(Request $request)
+    {
+        $code = $request -> input('res_code');
+        $this-> serviceReservation-> finishStartedSpecialist($code);
+        reservation::where('code', $code)->update(['status' => 'Started']);
+        return back();
+    }
+
+    public function finishReservation(Request $request)
+    {
+        $code = $request -> input('res_code');
+        reservation::where('code', $code)->update(['status' => 'Finished']);
+        return back();
+    }
+
+
 }

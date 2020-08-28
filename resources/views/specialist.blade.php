@@ -15,6 +15,22 @@
                     Cancel Reservation
                 </button>
             </form>
+
+            <form method="POST" action="/reservation/start">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="res_code" value="{{$reservation -> code}}">
+                <button type="submit" >
+                    Start
+                </button>
+            </form>
+
+            <form method="POST" action="/reservation/finish">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="res_code" value="{{$reservation -> code}}">
+                <button type="submit" >
+                    Finish
+                </button>
+            </form>
         </p>
     @endforeach
 </div>
