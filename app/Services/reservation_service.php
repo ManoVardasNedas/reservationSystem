@@ -43,4 +43,5 @@ class reservation_service
             ['status', 'Started']])
             ->update(['status' => 'Finished']);
     }
+
 }

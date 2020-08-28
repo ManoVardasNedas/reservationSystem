@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\reservation;
 use App\Services\reservation_service;
+use App\Services\validate_service;
 use App\specialist;
 use Illuminate\Http\Request;
 
 class reservationController extends Controller
 {
     private $serviceReservation;
+    private $serviceValidation;
 
     public function __construct()
     {
         $this->serviceReservation = new reservation_service();
+        $this->serviceValidation = new validate_service();
     }
 
     public function show_res_create()
@@ -24,6 +27,7 @@ class reservationController extends Controller
 
     public function createReservation(Request $request)
     {
+        $this->validateReservationCreate($request);
         $code = rand(1000000, 9999999);
 
         $date = $request-> input('reservationDate');
@@ -42,6 +46,7 @@ class reservationController extends Controller
 
     public function cancelReservation(Request $request)
     {
+        $this->validateReservationCode($request);
         $code = $request->input('res_code');
         reservation::where('code', $code)->delete();
         return redirect('/');
@@ -49,6 +54,7 @@ class reservationController extends Controller
 
     public function startReservation(Request $request)
     {
+        $this->validateReservationCode($request);
         $code = $request -> input('res_code');
         $this-> serviceReservation-> finishStartedSpecialist($code);
         reservation::where('code', $code)->update(['status' => 'Started']);
@@ -57,10 +63,26 @@ class reservationController extends Controller
 
     public function finishReservation(Request $request)
     {
+        $this->validateReservationCode($request);
         $code = $request -> input('res_code');
         reservation::where('code', $code)->update(['status' => 'Finished']);
         return back();
     }
 
+    private function validateReservationCode(Request $request)
+    {
+        $this->validate($request, [
+            'res_code'  =>  'numeric'
+        ]);
+        return true;
+    }
+
+    private function validateReservationCreate(request $request)
+    {
+        $this->validate($request, [
+            'specialistID'      =>  'required|numeric',
+            'reservationDate'   =>  'required|date'
+        ]);
+    }
 
 }

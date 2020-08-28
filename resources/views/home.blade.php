@@ -1,5 +1,9 @@
 <p>Home screen</p>
-
+@if( count($errors) > 0)
+    @foreach($errors->all() as $error)
+        <li class="error">{{$error}}</li>
+    @endforeach
+@endif
 <form method="POST" action="/reservation/info">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

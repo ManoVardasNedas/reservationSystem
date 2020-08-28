@@ -23,6 +23,7 @@ class reservationInfoController extends Controller
 
     public function showReservationInfo(Request $request)
     {
+        $this-> validateReservationCode($request);
         $code = $request->input('res_code');
         $reservationInfo = $this->serviceReservation->getReservation($code);
         $specialistInfo = $this->serviceSpecialist->getSpecialist($reservationInfo['fk_specialistID']);
@@ -31,5 +32,14 @@ class reservationInfoController extends Controller
 
 
         return view('reservation_info', compact('reservationInfo', 'specialistInfo', 'timeLeft', 'numberInLine'));
+    }
+
+    private function validateReservationCode(Request $request)
+    {
+        $this->validate($request, [
+            'res_code'  =>  'required|numeric'
+        ],
+            [ 'res_code' => 'The reservation code is required']);
+        return true;
     }
 }
