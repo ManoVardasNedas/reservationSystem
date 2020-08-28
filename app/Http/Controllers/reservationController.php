@@ -14,7 +14,7 @@ class reservationController extends Controller
         return view('reservationCreate', compact('specialists'));
     }
 
-    public function create(Request $request)
+    public function createReservation(Request $request)
     {
         $code = rand(1000000, 9999999);
 
