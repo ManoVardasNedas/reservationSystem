@@ -20,6 +20,7 @@ Route::post('/reservation/confirm', 'reservationController@createReservation');
 Route::post('/reservation/info', 'reservationInfoController@showReservationInfo');
 Route::post('/reservation/cancel', 'reservationController@cancelReservation');
 
+Route::get('/specialist', 'specialistController@showSpecialistView')->middleware('auth');
 
 Route::get('/logout', 'userController@logout');
 
