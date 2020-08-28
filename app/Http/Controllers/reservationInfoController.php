@@ -27,8 +27,9 @@ class reservationInfoController extends Controller
         $reservationInfo = $this->serviceReservation->getReservation($code);
         $specialistInfo = $this->serviceSpecialist->getSpecialist($reservationInfo['fk_specialistID']);
         $timeLeft = $this->serviceTime->getTimeLeftText($reservationInfo['dateTime']);
+        $numberInLine = $this->serviceReservation->getLineNumber($reservationInfo['dateTime'], $specialistInfo['specialist_ID']);
 
 
-        return view('reservation_info', compact('reservationInfo', 'specialistInfo', 'timeLeft'));
+        return view('reservation_info', compact('reservationInfo', 'specialistInfo', 'timeLeft', 'numberInLine'));
     }
 }
