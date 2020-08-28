@@ -1,9 +1,3 @@
-<p>specialist screen</p>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<h1>Reservations</h1>
-<div id="data_ref">
     @foreach($reservations as $reservation)
         <p>
             Reservation code: {{$reservation -> code}} <br>
@@ -33,15 +27,6 @@
                     Finish
                 </button>
             </form>
+        <br>
         </p>
     @endforeach
-</div>
-
-<script>
-    var auto_refresh = setInterval( function()
-        {
-            $('#data_ref').load('<?php echo url('/specialist/refresh');?>').fadeIn("slow");
-        },
-        5000
-    );
-</script>

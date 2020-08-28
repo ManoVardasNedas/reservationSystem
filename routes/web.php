@@ -23,6 +23,8 @@ Route::post('/reservation/start', 'reservationController@startReservation');
 Route::post('/reservation/finish', 'reservationController@finishReservation');
 
 Route::get('/specialist', 'specialistController@showSpecialistView')->middleware('auth');
+Route::get('/specialist/refresh', 'specialistController@reservationDataRefresh')->middleware('auth');
+
 
 Route::get('/logout', 'userController@logout');
 

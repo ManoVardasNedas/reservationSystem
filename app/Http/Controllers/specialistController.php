@@ -23,4 +23,12 @@ class specialistController extends Controller
 
         return view('specialist', compact('reservations'));
     }
+
+    public function reservationDataRefresh()
+    {
+        $userID = auth()->user()['id'];
+        $reservations = $this->serviceReservation->getReservationsBySpecialistUserID($userID);
+
+        return view('specialist_reservation_data', compact('reservations'));
+    }
 }
