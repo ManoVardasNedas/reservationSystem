@@ -12,6 +12,17 @@ class reservation_service
         return $reservation;
     }
 
+    public function getReservationsBySpecialistUserID(int $userID)
+    {
+        $reservations = reservation::join('specialists', 'reservations.fk_specialistID', '=', 'specialists.specialist_ID')
+            ->where('fk_userID', $userID)
+            ->orderBy('dateTime')
+            ->limit(6)
+            ->get();
+
+        return $reservations;
+    }
+
     public function getLineNumber(string $time, int $specialistID)
     {
         $reservations = reservation::where('fk_specialistID', $specialistID)
