@@ -29,7 +29,7 @@ class reservationController extends Controller
             'status'            => 'Upcoming'
         ]);
 
-        return $code;
+        return "Your code: ".$code. "<br> <a href=\"/\"><button class=\"button\">Back to main screen</button></a>";
     }
 
     public function cancelReservation(Request $request)
