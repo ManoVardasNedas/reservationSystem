@@ -19,7 +19,8 @@ class reservationInfoController extends Controller
     public function showReservationInfo(Request $request)
     {
         $code = $request->input('res_code');
-        
-        return view('reservation_info');
+        $reservationInfo = $this->serviceReservation->getReservation($code);
+
+        return view('reservation_info', compact('reservationInfo'));
     }
 }
