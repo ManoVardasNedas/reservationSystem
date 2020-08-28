@@ -26,8 +26,9 @@ class reservationInfoController extends Controller
         $code = $request->input('res_code');
         $reservationInfo = $this->serviceReservation->getReservation($code);
         $specialistInfo = $this->serviceSpecialist->getSpecialist($reservationInfo['fk_specialistID']);
+        $timeLeft = $this->serviceTime->getTimeLeftText($reservationInfo['dateTime']);
 
 
-        return view('reservation_info', compact('reservationInfo', 'specialistInfo'));
+        return view('reservation_info', compact('reservationInfo', 'specialistInfo', 'timeLeft'));
     }
 }
