@@ -18,6 +18,7 @@ Route::get('/', 'homeController@show');
 Route::get('/reservation', 'reservationController@show_res_create');
 Route::post('/reservation/confirm', 'reservationController@createReservation');
 Route::post('/reservation/info', 'reservationInfoController@showReservationInfo');
+Route::post('/reservation/cancel', 'reservationController@cancelReservation');
 
 
 Route::get('/logout', 'userController@logout');

@@ -31,4 +31,11 @@ class reservationController extends Controller
 
         return $code;
     }
+
+    public function cancelReservation(Request $request)
+    {
+        $code = $request->input('res_code');
+        reservation::where('code', $code)->delete();
+        return redirect('/');
+    }
 }
