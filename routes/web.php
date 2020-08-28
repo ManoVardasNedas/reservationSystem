@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'homeController@show');
+Route::get('/', 'HomeController@show');
 
 Route::get('/reservation', 'reservationController@show_res_create');
 Route::post('/reservation/confirm', 'reservationController@createReservation');
