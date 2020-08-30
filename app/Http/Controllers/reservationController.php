@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\reservation;
 use App\Services\reservation_service;
-use App\Services\validate_service;
+use App\Services\time_service;
 use App\specialist;
 use Illuminate\Http\Request;
 
 class reservationController extends Controller
 {
     private $serviceReservation;
-    private $serviceValidation;
+    private $serviceTime;
 
     public function __construct()
     {
         $this->serviceReservation = new reservation_service();
-        $this->serviceValidation = new validate_service();
+        $this->serviceTime = new time_service();
     }
 
     public function show_res_create()
@@ -28,18 +28,14 @@ class reservationController extends Controller
     public function createReservation(Request $request)
     {
         $this->validateReservationCreate($request);
-        $code = rand(1000000, 9999999);
+        $code = $this->serviceReservation->generateCode();
 
         $date = $request-> input('reservationDate');
         $time = $request-> input('reservationTime');
-        $dateTime = date('Y-m-d H:i:s', strtotime("$date $time"));
+        $dateTime = $this->serviceTime->connectDateAndTime($date, $time);
 
-        reservation::create([
-            'code'              => $code,
-            'fk_specialistID'   => $request -> input('specialistID'),
-            'dateTime'          => $dateTime,
-            'status'            => 'Upcoming'
-        ]);
+        $this->serviceReservation->createReservation($code, $request->input('specialistID'), $dateTime);
+
 
         return "Your code: ".$code. "<br> <a href=\"/\"><button class=\"button\">Back to main screen</button></a>";
     }
@@ -48,7 +44,7 @@ class reservationController extends Controller
     {
         $this->validateReservationCode($request);
         $code = $request->input('res_code');
-        reservation::where('code', $code)->delete();
+        $this->serviceReservation->deleteReservation($code);
         return redirect('/');
     }
 
@@ -57,7 +53,7 @@ class reservationController extends Controller
         $this->validateReservationCode($request);
         $code = $request -> input('res_code');
         $this-> serviceReservation-> finishStartedSpecialist($code);
-        reservation::where('code', $code)->update(['status' => 'Started']);
+        $this-> serviceReservation-> changeReservationStatus( $code ,'Started');
         return back();
     }
 
@@ -65,7 +61,7 @@ class reservationController extends Controller
     {
         $this->validateReservationCode($request);
         $code = $request -> input('res_code');
-        reservation::where('code', $code)->update(['status' => 'Finished']);
+        $this-> serviceReservation-> changeReservationStatus( $code ,'Finished');
         return back();
     }
 

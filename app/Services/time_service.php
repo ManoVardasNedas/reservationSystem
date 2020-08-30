@@ -26,4 +26,10 @@ class time_service
         return Carbon::now('Europe/Vilnius');
     }
 
+    public function connectDateAndTime($date, $time)
+    {
+        $dateTime = date('Y-m-d H:i:s', strtotime("$date $time"));
+        return $dateTime;
+    }
+
 }

@@ -6,6 +6,18 @@ use App\reservation;
 
 class reservation_service
 {
+
+    public function createReservation($code, $specialistID, $dateTime)
+    {
+        reservation::create([
+            'code'              => $code,
+            'fk_specialistID'   => $specialistID,
+            'dateTime'          => $dateTime,
+            'status'            => 'Upcoming'
+        ]);
+        return true;
+    }
+
     public function getReservation(int $reservation_code)
     {
         $reservation = reservation::where('code', $reservation_code)->first();
@@ -42,6 +54,24 @@ class reservation_service
             ['fk_specialistID', $specialistID],
             ['status', 'Started']])
             ->update(['status' => 'Finished']);
+    }
+
+    public function generateCode()
+    {
+        $code = rand(1000000, 9999999);
+        return $code;
+    }
+
+    public function deleteReservation(int $code)
+    {
+        reservation::where('code', $code)->delete();
+        return true;
+    }
+
+    public function changeReservationStatus(int $code, string $status)
+    {
+        reservation::where('code', $code)->update(['status' => $status]);
+        return true;
     }
 
 }
