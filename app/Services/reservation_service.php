@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\reservation;
+use Carbon\Carbon;
 
 class reservation_service
 {
@@ -26,8 +27,13 @@ class reservation_service
 
     public function getReservationsBySpecialistUserID(int $userID)
     {
+        $timeNow = Carbon::now('Europe/Vilnius')->subHours(1);
+        echo $timeNow;
         $reservations = reservation::join('specialists', 'reservations.fk_specialistID', '=', 'specialists.specialist_ID')
             ->where('fk_userID', $userID)
+            ->where('dateTime', '>' , $timeNow)
+            ->where('status', '!=', 'Finished')
+            ->orderByRaw('IF(status = "Started", 0, 1)')
             ->orderBy('dateTime')
             ->limit(6)
             ->get();
