@@ -1,3 +1,99 @@
+#reservationSystem
+
+## About
+This is a repository for a reservation system. Simple system that allows users to get a reservations with a specialist, see how much time is left until meeting and allows specialist to alter reservation status and cancel it.This project was created for an internship.
+
+## Technologies
+* MySQL
+* PHP
+* Laravel framework
+
+## Hosted project link
+
+[Link](https://nedas-reservation-system.herokuapp.com/)
+Hosted by Heroku
+
+## How to use
+
+##### Home screen
+route '/'
+
+enter reservation code to check reservations info or go to reservation screen
+
+##### reservation screen
+route '/reservation'
+
+select specialist, date, time and register.
+If reservation is successful it will output new screen with a code (REMEMBER IT)
+
+##### reservation info screen
+route '/reservation/info'
+
+After entering reservation code in home screen it will output reservation info screen.This screen show how much time is left, place in line, specialist name and surname, status.
+
+From this screen a guest can cancel his reservation.
+
+##### Log in screen
+route '/login'
+
+specialist can login in this screen
+
+##### Register screen
+route '/register'
+Specialist can create his user account in this screen
+
+!!!!!!!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!!!!!!
+It only creates user table data. After creating a user specialist table info is gonna have to be created manually in a database. 
+
+##### specialist screen 
+
+route '/specialist'
+
+If a user is not logged in it will redirect to login screen. In this screen he sees his upcoming 6 reservations with guests.
+
+
+## Installation
+1. Clone this repo to your local machine using https://github.com/ManoVardasNedas/reservationSystem.git
+2. Build a database, check below for sql.
+3. change .env database connection options.
+4. Run project with a command 'php artisan serve'.
+
+#### Short version of SQL to build database
+
+CREATE TABLE password_resets (
+  email varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  token varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  created_at timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE reservations (
+  code int(11) NOT NULL,
+  fk_specialistID int(11) NOT NULL,
+  dateTime datetime NOT NULL,
+  status varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE specialists (
+  specialist_ID int(11) NOT NULL,
+  name varchar(20) NOT NULL,
+  surname varchar(20) NOT NULL,
+  fk_userID bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE users (
+  id bigint(20) UNSIGNED NOT NULL,
+  name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  email varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  email_verified_at timestamp NULL DEFAULT NULL,
+  password varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  remember_token varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  created_at timestamp NULL DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Laravel
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
