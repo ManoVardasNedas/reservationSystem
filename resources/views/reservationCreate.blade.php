@@ -1,4 +1,9 @@
 <p>Reservation screen</p>
+
+@if ($message = Session::get('error'))
+    <li class="error">{{$message}}</li>
+@endif
+
 <form method="POST" action="/reservation/confirm">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

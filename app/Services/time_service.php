@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\reservation;
 use Carbon\Carbon;
 
 class time_service
@@ -30,6 +31,26 @@ class time_service
     {
         $dateTime = date('Y-m-d H:i:s', strtotime("$date $time"));
         return $dateTime;
+    }
+
+    public function isReservationTimeAvailable($dateTime)
+    {
+        $timeNow = $this->getTimeNow();
+        if($timeNow > $dateTime)
+        {
+            return false;
+        }
+        else return $this->isReservationTimeFree($dateTime);
+    }
+
+    public function isReservationTimeFree($dateTime)
+    {
+        $reservation = reservation::where('dateTime', $dateTime) -> first();
+        if($reservation == null)
+        {
+            return true;
+        }
+        else return false;
     }
 
 }

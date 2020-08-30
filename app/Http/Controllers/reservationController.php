@@ -33,11 +33,14 @@ class reservationController extends Controller
         $date = $request-> input('reservationDate');
         $time = $request-> input('reservationTime');
         $dateTime = $this->serviceTime->connectDateAndTime($date, $time);
+        if ($this->serviceTime->isReservationTimeAvailable($dateTime))
+        {
+            $this->serviceReservation->createReservation($code, $request->input('specialistID'), $dateTime);
+            return "Your code: ".$code. "<br> <a href=\"/\"><button class=\"button\">Back to main screen</button></a>";
+        }
+        return back()->with('error', 'This time is taken');
 
-        $this->serviceReservation->createReservation($code, $request->input('specialistID'), $dateTime);
 
-
-        return "Your code: ".$code. "<br> <a href=\"/\"><button class=\"button\">Back to main screen</button></a>";
     }
 
     public function cancelReservation(Request $request)
