@@ -28,7 +28,6 @@ class reservation_service
     public function getReservationsBySpecialistUserID(int $userID)
     {
         $timeNow = Carbon::now('Europe/Vilnius')->subHours(1);
-        echo $timeNow;
         $reservations = reservation::join('specialists', 'reservations.fk_specialistID', '=', 'specialists.specialist_ID')
             ->where('fk_userID', $userID)
             ->where('dateTime', '>' , $timeNow)

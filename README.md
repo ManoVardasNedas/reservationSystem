@@ -13,6 +13,11 @@ This is a repository for a reservation system. Simple system that allows users t
 [Link](https://nedas-reservation-system.herokuapp.com/)
 Hosted by Heroku
 
+Test specialist login information:
+
+- Email: test@pastas.lt
+- Pass: slaptazodis
+
 ## How to use
 
 ##### Home screen
