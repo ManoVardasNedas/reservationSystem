@@ -1,5 +1,7 @@
 <p>specialist screen</p>
 
+<br> <a href="/logout"><button class="button">Logout</button></a>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <h1>Reservations</h1>
