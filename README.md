@@ -15,7 +15,7 @@ Hosted by Heroku
 
 Test specialist login information:
 
-- Email: test@pastas.lt
+- Email: testas@pastas.lt
 - Pass: slaptazodis
 
 ## How to use
