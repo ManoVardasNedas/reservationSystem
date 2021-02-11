@@ -54,7 +54,7 @@ It only creates user table data. After creating a user specialist table info is 
 
 route '/specialist'
 
-If a user is not logged in it will redirect to login screen. In this screen he sees his upcoming 6 reservations with guests.
+If a user is not logged in it will redirect to login screen. In this screen a user sees his upcoming 6 reservations with guests, it automatically updates evey 5 seconds.
 
 
 ## Installation
