@@ -1,7 +1,7 @@
 # reservationSystem
 
 ## About
-This is a repository for a reservation system. Simple system that allows users to get a reservations with a specialist, see how much time is left until meeting and allows specialist to alter reservation status and cancel it.This project was created for an internship.
+This is a repository for a reservation system. Simple system that allows users to get a reservations with a specialist, see how much time is left until meeting and allows specialist to alter reservation status and cancel it.
 
 ## Technologies
 * MySQL
